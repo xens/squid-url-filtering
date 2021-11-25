@@ -28,4 +28,4 @@ docker run -v $(pwd)/squid.conf:/etc/squid/squid.conf \
 # Todo
 
 * check if we can redirect to an error page for un-authorized HTTPS sites (instead of a 403).
-
+* add default to do proper logging and caching
