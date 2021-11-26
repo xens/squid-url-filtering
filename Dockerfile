@@ -1,10 +1,8 @@
-FROM debian:stable
+FROM alpine:latest
 LABEL maintainer="r.aviolat@gmail.com"
 
-RUN apt-get update \
- && DEBIAN_FRONTEND=noninteractive \
- && apt-get install -y squid-openssl \
- && rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache \
+        squid
 
 COPY entrypoint.sh /sbin/entrypoint.sh
 RUN chmod 755 /sbin/entrypoint.sh

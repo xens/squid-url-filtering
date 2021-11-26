@@ -1,4 +1,34 @@
-#!/bin/bash
+#!/bin/sh
 
-/usr/lib/squid/security_file_certgen -c -s /var/spool/squid/ssl_db -M 4MB
-exec $(which squid) -f /etc/squid/squid.conf -NYCd 1
+set -e
+
+CHOWN=$(/usr/bin/which chown)
+SQUID=$(/usr/bin/which squid)
+
+prepare_folders() {
+	echo "Preparing folders..."
+	mkdir -p /etc/squid-cert/
+	mkdir -p /var/cache/squid/
+	mkdir -p /var/log/squid/
+	"$CHOWN" -R squid:squid /etc/squid-cert/
+	"$CHOWN" -R squid:squid /var/cache/squid/
+	"$CHOWN" -R squid:squid /var/log/squid/
+}
+
+initialize_cache() {
+	echo "Creating cache folder..."
+	"$SQUID" -z
+
+	sleep 5
+}
+
+run() {
+	echo "Starting squid..."
+	prepare_folders
+	#create_cert
+	#clear_certs_db
+	initialize_cache
+	exec "$SQUID" -NYCd 1 -f /etc/squid/squid.conf
+}
+
+run
