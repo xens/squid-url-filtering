@@ -1,11 +1,11 @@
 FROM alpine:latest
 LABEL maintainer="r.aviolat@gmail.com"
 
-RUN apk add --no-cache \
-        squid
+RUN apk add --no-cache squid
 
-COPY entrypoint.sh /sbin/entrypoint.sh
-RUN chmod 755 /sbin/entrypoint.sh
+COPY squid.conf /etc/squid/squid.conf
 
 EXPOSE 3128
-ENTRYPOINT ["/sbin/entrypoint.sh"]
+USER squid
+ENTRYPOINT ["squid","-NYCd","1","-f","/etc/squid/squid.conf"]
+
