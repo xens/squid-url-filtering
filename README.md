@@ -1,6 +1,14 @@
-# Squid Transparent Proxy
+# Squid URL filtering
 
-Simple out-of-the-box config to do URL filtering using Squid
+Simple out-of-the-box config to do URL filtering using Squid without inspecting the payload content (no man-in-the-middle).
+
+Here Squid will work as an explicit forward proxy so it'll need to be configured expllicitely on the clients.
+
+The setup is easy to put in place, it doesn't require to manage / distribute certificates on client machines as we're not terminating the TLS sessions on the proxy.
+
+It uses the CONNECT HTTP method.
+
+![](img/tls_proxy_connect.webp)
 
 # how-to
 
