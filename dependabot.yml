@@ -1,0 +1,8 @@
+# Basic Dependabot configuration
+
+version: 2
+updates:
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
